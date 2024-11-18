@@ -181,6 +181,56 @@
         
 
 <div class="post">
+    <a href="/2024/11/18/%E7%A7%91%E6%9D%A5error/">
+        <h2 class="post-title">科来error</h2>
+    </a>
+    <div class="category-and-date">
+        
+        <span class="category">
+            <a href="/categories/ctf/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                ctf
+            </a>
+        </span>
+        
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2024/11/18
+        </span>
+        
+        
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
+            
+            <p>网络驱动器！？<br>程序不兼容——否<br>系统重装——否<br>外置网卡！！？</p>
+<p>经过数次尝试后，仍然没有解决找不到网络驱动器这一情况（基本网上能尝试的都试过了，但是在虚拟机 win10 下载就能正常找到）。就在这两天，电脑的 wifi 图标突然不见了，这下不是科来找不到，我自己的电脑也找不到网络适配器了。<br>在 b 站大佬的评论中找到解决方法。<br>win+r 后输入 devmgmt.msc，进入设备管理器，点开网络适配器后，出现 intel、vm 开头的网卡爆黄色警号，点开对应报错网卡后提示：windows 仍在设置此设备代码 56，原因是虚拟机的注册表出问题了<br>![[Pasted image 20241118205028.png]]<br>解决方式：win+r 后输入命令 regedit，进入后在 ctrl+f 查找输入 3d09c，找到 3d09c1ca-2bcc-40b7-b9bb-3f3ec143a87b 后直接删掉，over。<br>因祸得福，解决后 wifi 图标回来了，科来也能找到网卡了好耶</p>
+
+            
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85/" style="color: #00a596">工具安装</a>
+        </span>
+        
+    </div>
+    <a href="/2024/11/18/%E7%A7%91%E6%9D%A5error/" class="go-post">阅读全文</a>
+</div>
+
+<div class="post">
     <a href="/2024/06/06/ctf-%E4%BC%A0%E5%8F%82/">
         <h2 class="post-title">ctf_传参</h2>
     </a>
@@ -227,7 +277,7 @@
         
         <span class="tag">
             
-            <a href="/tags/ctf/" style="color: #00a596">ctf</a>
+            <a href="/tags/ctf/" style="color: #00bcd4">ctf</a>
         </span>
         
     </div>
