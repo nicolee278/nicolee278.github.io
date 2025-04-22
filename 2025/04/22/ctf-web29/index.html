@@ -188,7 +188,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/ctf-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/" style="color: #03a9f4">               
+                <a href="/tags/ctf-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/" style="color: #00bcd4">               
                     ctf 命令执行
                 </a>
             </span>
@@ -198,19 +198,24 @@
     </div>
     
     <div class="content" v-pre>
-        <figure class="highlight php"><figcaption><span>php</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Author</span>: h1xa</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Date</span>:   2020-09-04 00:12:34</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Last</span> Modified by:   h1xa</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Last</span> Modified time: 2020-09-04 00:26:48</span></span><br><span class="line"><span class="comment"># <span class="doctag">@email</span>: h1xa<span class="doctag">@ctfer</span>.com</span></span><br><span class="line"><span class="comment"># <span class="doctag">@link</span>: https://ctfer.com</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;c&#x27;</span>]))&#123;    <span class="variable">$c </span>= <span class="variable">$_GET</span>[<span class="string">&#x27;c&#x27;</span>];</span><br><span class="line">    <span class="keyword">if</span>(!<span class="title function_ invoke__">preg_match</span>(<span class="string">&quot;/flag/i&quot;</span>, <span class="variable">$c</span>))&#123;</span><br><span class="line">        <span class="keyword">eval</span>(<span class="variable">$c</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;<span class="keyword">else</span>&#123;    <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <pre><code>error_reporting(0);
+if(isset($_GET[&#39;c&#39;]))&#123;    $c = $_GET[&#39;c&#39;];
+</code></pre>
+<p>           if(!preg_match(“&#x2F;flag&#x2F;i”, $c)){<br>             eval($c);<br>    }<br>    }else{    highlight_file(<strong>FILE</strong>);<br>    }</p>
 <p>这段 PHP 代码是一个典型的<strong>Web Shell 后门</strong>或<strong>代码执行漏洞</strong>的实现，具有明显的安全风险。以下是详细分析：</p>
 <h3 id="代码逐行解析"><a href="#代码逐行解析" class="headerlink" title="代码逐行解析"></a><strong>代码逐行解析</strong></h3><h4 id="1-错误报告关闭"><a href="#1-错误报告关闭" class="headerlink" title="1. 错误报告关闭"></a>1. 错误报告关闭</h4><p>error_reporting(0);</p>
 <ul>
 <li>关闭所有 PHP 错误提示</li>
 <li><strong>攻击者目的</strong>：隐藏代码执行过程中可能产生的错误信息，避免暴露线索</li>
 </ul>
-<h4 id="2-检查-GET-参数"><a href="#2-检查-GET-参数" class="headerlink" title="2. 检查 GET 参数"></a>2. 检查 GET 参数</h4><p>if(isset($_ GET[‘c’])){</p>
+<h4 id="2-检查-GET-参数"><a href="#2-检查-GET-参数" class="headerlink" title="2. 检查 GET 参数"></a>2. 检查 GET 参数</h4><pre><code>if(isset($\_ GET[&#39;c&#39;]))&#123;
+</code></pre>
 <ul>
 <li>检查是否存在名为<code>c</code>的 GET 参数（如：<code>?c=命令</code>）</li>
 <li>这是攻击者传递恶意代码的入口</li>
 </ul>
-<h4 id="3-简单过滤检查"><a href="#3-简单过滤检查" class="headerlink" title="3. 简单过滤检查"></a>3. 简单过滤检查</h4><p>if(!preg_match(“&#x2F;flag&#x2F;i”, $c)){</p>
+<h4 id="3-简单过滤检查"><a href="#3-简单过滤检查" class="headerlink" title="3. 简单过滤检查"></a>3. 简单过滤检查</h4><pre><code>if(!preg_match(&quot;/flag/i&quot;, $c))&#123;
+</code></pre>
 <ul>
 <li>用正则表达式检查参数值是否包含<code>flag</code>（不区分大小写）</li>
 <li><strong>脆弱性</strong>：仅过滤了<code>flag</code>关键词，防御极其薄弱</li>
@@ -222,7 +227,10 @@
 <li>使用<code>eval()</code>函数直接执行 GET 参数中的 PHP 代码</li>
 <li><strong>危害</strong>：攻击者可执行任意系统命令、读取文件、反弹 Shell 等</li>
 </ul>
-<h4 id="5-默认行为"><a href="#5-默认行为" class="headerlink" title="5. 默认行为"></a>5. 默认行为</h4><p>}else{<br>highlight_file(<strong>FILE</strong>);<br>}</p>
+<h4 id="5-默认行为"><a href="#5-默认行为" class="headerlink" title="5. 默认行为"></a>5. 默认行为</h4><pre><code>&#125;else&#123;
+highlight_file(**FILE**);
+&#125;
+</code></pre>
 <ul>
 <li>如果没有<code>c</code>参数，高亮显示当前文件内容</li>
 <li><strong>攻击者目的</strong>：伪装成普通文件，隐藏后门功能</li>
