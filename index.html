@@ -207,31 +207,8 @@
     <div class="description">
         <div class="content" v-pre>
             
-            <?php
-
-/*
-# -*- coding: utf-8 -*-
-# @Author: h1xa
-# @Date:   2020-09-04 00:12:34
-# @Last Modified by:   h1xa
-# @Last Modified time: 2020-09-04 00:26:48
-# @email: h1xa@ctfer.com
-# @link: https://ctfer.com
-
-*/
-
-error_reporting(0);
-if(isset($_GET['c'])){    $c = $_GET['c'];
-    if(!preg_match("/flag/i", $c)){
-        eval($c);
-    }
-    
-}else{    highlight_file(__FILE__);
-}
-
-这段 PHP 代码是一个典型的**Web Shell 后门**或**代码执行漏洞**的实现，具有明显的安全风险。以下是详细分析：
-?>
-
+            <figure class="highlight php"><figcaption><span>php</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Author</span>: h1xa</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Date</span>:   2020-09-04 00:12:34</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Last</span> Modified by:   h1xa</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Last</span> Modified time: 2020-09-04 00:26:48</span></span><br><span class="line"><span class="comment"># <span class="doctag">@email</span>: h1xa<span class="doctag">@ctfer</span>.com</span></span><br><span class="line"><span class="comment"># <span class="doctag">@link</span>: https://ctfer.com</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;c&#x27;</span>]))&#123;    <span class="variable">$c </span>= <span class="variable">$_GET</span>[<span class="string">&#x27;c&#x27;</span>];</span><br><span class="line">    <span class="keyword">if</span>(!<span class="title function_ invoke__">preg_match</span>(<span class="string">&quot;/flag/i&quot;</span>, <span class="variable">$c</span>))&#123;</span><br><span class="line">        <span class="keyword">eval</span>(<span class="variable">$c</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;<span class="keyword">else</span>&#123;    <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这段 PHP 代码是一个典型的<strong>Web Shell 后门</strong>或<strong>代码执行漏洞</strong>的实现，具有明显的安全风险。以下是详细分析：</p>
 <h3 id="代码逐行解析"><a href="#代码逐行解析" class="headerlink" title="代码逐行解析"></a><strong>代码逐行解析</strong></h3><h4 id="1-错误报告关闭"><a href="#1-错误报告关闭" class="headerlink" title="1. 错误报告关闭"></a>1. 错误报告关闭</h4><p>error_reporting(0);</p>
 <ul>
 <li>关闭所有 PHP 错误提示</li>
@@ -287,7 +264,7 @@ if(isset($_GET['c'])){    $c = $_GET['c'];
         
         <span class="tag">
             
-            <a href="/tags/ctf-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/" style="color: #ffa2c4">ctf 命令执行</a>
+            <a href="/tags/ctf-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/" style="color: #00bcd4">ctf 命令执行</a>
         </span>
         
     </div>
@@ -337,7 +314,7 @@ if(isset($_GET['c'])){    $c = $_GET['c'];
         
         <span class="tag">
             
-            <a href="/tags/%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85/" style="color: #ffa2c4">工具安装</a>
+            <a href="/tags/%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85/" style="color: #ff7d73">工具安装</a>
         </span>
         
     </div>
@@ -391,7 +368,7 @@ if(isset($_GET['c'])){    $c = $_GET['c'];
         
         <span class="tag">
             
-            <a href="/tags/ctf/" style="color: #ff7d73">ctf</a>
+            <a href="/tags/ctf/" style="color: #03a9f4">ctf</a>
         </span>
         
     </div>
