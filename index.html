@@ -222,53 +222,7 @@ if(isset($_GET[&#39;c&#39;]))&#123;    $c = $_GET[&#39;c&#39;];
 &#125;else&#123;    highlight_file(__FILE__);
 &#125;
 </code></pre>
-<h3 id="代码逐行解析"><a href="#代码逐行解析" class="headerlink" title="代码逐行解析"></a><strong>代码逐行解析</strong></h3><h4 id="1-错误报告关闭"><a href="#1-错误报告关闭" class="headerlink" title="1. 错误报告关闭"></a>1. 错误报告关闭</h4><p>error_reporting(0);</p>
-<ul>
-<li>关闭所有 PHP 错误提示</li>
-<li><strong>攻击者目的</strong>：隐藏代码执行过程中可能产生的错误信息，避免暴露线索</li>
-</ul>
-<h4 id="2-检查-GET-参数"><a href="#2-检查-GET-参数" class="headerlink" title="2. 检查 GET 参数"></a>2. 检查 GET 参数</h4><pre><code>if(isset($\_ GET[&#39;c&#39;]))&#123;
-</code></pre>
-<ul>
-<li>检查是否存在名为<code>c</code>的 GET 参数（如：<code>?c=命令</code>）</li>
-<li>这是攻击者传递恶意代码的入口</li>
-</ul>
-<h4 id="3-简单过滤检查"><a href="#3-简单过滤检查" class="headerlink" title="3. 简单过滤检查"></a>3. 简单过滤检查</h4><pre><code>if(!preg_match(&quot;/flag/i&quot;, $c))&#123;
-</code></pre>
-<ul>
-<li>用正则表达式检查参数值是否包含<code>flag</code>（不区分大小写）</li>
-<li><strong>脆弱性</strong>：仅过滤了<code>flag</code>关键词，防御极其薄弱</li>
-<li><strong>绕过方法</strong>：可通过字符串拼接（如<code>fla&quot;.&quot;g</code>）、编码等方式绕过</li>
-</ul>
-<h4 id="4-危险代码执行"><a href="#4-危险代码执行" class="headerlink" title="4. 危险代码执行"></a>4. 危险代码执行</h4><pre><code>eval($c);
-</code></pre>
-<ul>
-<li>使用<code>eval()</code>函数直接执行 GET 参数中的 PHP 代码</li>
-<li><strong>危害</strong>：攻击者可执行任意系统命令、读取文件、反弹 Shell 等</li>
-</ul>
-<h4 id="5-默认行为"><a href="#5-默认行为" class="headerlink" title="5. 默认行为"></a>5. 默认行为</h4><pre><code>&#125;else&#123;
-highlight_file(**FILE**);
-&#125;
-</code></pre>
-<ul>
-<li>如果没有<code>c</code>参数，高亮显示当前文件内容</li>
-<li><strong>攻击者目的</strong>：伪装成普通文件，隐藏后门功能</li>
-</ul>
-<hr>
-<h3 id="攻击示例"><a href="#攻击示例" class="headerlink" title="攻击示例"></a><strong>攻击示例</strong></h3><ol>
-<li><strong>执行系统命令</strong><br><a target="_blank" rel="noopener" href="http://example.com/shell.php">http://example.com/shell.php</a>? c&#x3D;system(‘whoami’);<ul>
-<li>输出当前服务器用户</li>
-<li>? c&#x3D;system(‘ls’); &#x2F;&#x2F;读取目录<br>得到<br>![[web29phpls.png]]</li>
-<li>? c&#x3D;system(‘cp fla?.php 1.txt’)； &#x2F;&#x2F;cp 原文件 复制文件 复制 flag.php 内容到同一目录下的 1.txt<br>Linux cp 命令：复制文件和目录</li>
-</ul>
-</li>
-<li><strong>读取敏感文件</strong><br><a target="_blank" rel="noopener" href="http://example.com/shell.php">http://example.com/shell.php</a>? c&#x3D;echo file_get_contents(‘&#x2F;etc&#x2F;passwd’);<ul>
-<li>读取系统密码文件<br>因为这里有过滤所以不能用这个</li>
-</ul>
-</li>
-<li><strong>绕过<code>flag</code>过滤</strong><br><a target="_blank" rel="noopener" href="http://example.com/shell.php">http://example.com/shell.php</a>? c&#x3D;system(‘cat &#x2F;fla””.g’);<br>url? c&#x3D;system(‘fla?.php’);<br>url ?c&#x3D;phpinfo()<mark style="background: #D2B3FFA6;">；</mark><br>url?c&#x3D;phpinfo?&gt; &#x2F;&#x2F;不一定要用分号</li>
-</ol>
-
+<h3 id="代码逐行解析"><a href="#代码逐行解析" class="headerlink" title="代码逐行解析"></a><strong>代码逐行解析</strong></h3>
             
         </div>
     </div>
@@ -282,7 +236,7 @@ highlight_file(**FILE**);
         
         <span class="tag">
             
-            <a href="/tags/ctf-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/" style="color: #00bcd4">ctf 命令执行</a>
+            <a href="/tags/ctf-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/" style="color: #ffa2c4">ctf 命令执行</a>
         </span>
         
     </div>
@@ -332,7 +286,7 @@ highlight_file(**FILE**);
         
         <span class="tag">
             
-            <a href="/tags/%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85/" style="color: #ffa2c4">工具安装</a>
+            <a href="/tags/%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85/" style="color: #03a9f4">工具安装</a>
         </span>
         
     </div>
@@ -366,13 +320,7 @@ highlight_file(**FILE**);
     <div class="description">
         <div class="content" v-pre>
             
-            <p>###简单的传参<br>大前提之手撕 hackbar<br>(<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV17T411a7zN/?spm_id_from=333.999.0.0">https://www.bilibili.com/video/BV17T411a7zN/?spm_id_from=333.999.0.0</a>)<br>按教程弄好后 edge 浏览器也是一样的原理用开发者模式扩展上去<br>（1）easy_md5<br><img src="/test.png" alt="图片"><br>$name !&#x3D; $password➡️ 要求 name 和 password 数值不同<br>&amp;&amp; md5($name) &#x3D;&#x3D; md5($password)➡and 两者加密成 32 位 md5 转换值相等 ➡️0e###&#x3D;0<br>ps:&#x3D;&#x3D; 等于运算符，常见于弱类型题目， 比较时不同类型会被转换成数字；<br>php 处理 0e 开头字符串会当成科学计数法进行处理 0e+任意数字都&#x3D;0<br>膜拜的博客：<br>(<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_74020399/article/details/131132384">https://blog.csdn.net/qq_74020399/article/details/131132384</a>)<br>检查 ➡️ 打开 hackbar ➡️<br><img src="/2020240112205601.png" alt="图片"><br>⏯️excute 得 flag<br>（2）easy_include<br><img src="/2020240112221107.png" alt="图片"><br>直接传入 file 运行<br><img src="/2020240112221031.png" alt="图片"><br>得到：<br>flag 在 flag.php 中<br>这里我们知道了存放 flag 的文件地址，利用 php:&#x2F;&#x2F;filter 伪协议查看源代码<br>构造:file&#x3D;php:&#x2F;&#x2F;filter&#x2F;convert.base64-encode&#x2F;resource&#x3D;flag.php<br><img src="/2020240112222742.pngs" alt="图片"><br>得到：<br>PD9waHANCiRmbGFnPSdOU1NDVEZ7NDk0YjMwNmUtOGJkYy00ODA2LWFlZGYtNmY4NGNiZDMyMDg2fSc7<br>用 base64 解码器解码得到 flag</p>
-<p>⭐ps:php:&#x2F;&#x2F;filter 是一种元封装器， 设计用于数据流打开时的<a target="_blank" rel="noopener" href="http://docs.php.net/manual/zh/filters.php">筛选过滤</a>应用。 作为中 间流处理其他流<br>语法：php:&#x2F;&#x2F;filter&#x2F;read&#x2F;resource&#x3D;文件名<br>php:&#x2F;&#x2F;filter 的 参数列表<br>a.read     　　　　读取(可选)<br>string.strip_tags 将数据流中的所有 html 标签清除<br> string.toupper     将数据流中的内容转换为大写<br> string.tolower     将数据流中的内容转换为小写<br>convert.base64-encode   将数据流中的内容转换为 base64 编码<br>convert.base64-decode 与上面对应解码</p>
-<pre><code>    b. write    　　　写入(可选)
-
-    c.resource　　　 数据来源
-</code></pre>
-
+            <p>###简单的传参<br>大前提之手撕 hackbar<br>(<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV17T411a7zN/?spm_id_from=333.999.0.0">https://www.bilibili.com/video/BV17T411a7zN/?spm_id_from=333.999.0.0</a>)<br>按教程弄好后 edge 浏览器也是一样的原理用开发者模式扩展上去<br>（1）easy_md5<br><img src="/test.png" alt="图片"><br>$name !&#x3D; $password➡️ 要求 name 和 password 数值不同<br>&amp;&amp; md5($name) &#x3D;&#x3D; md5($password)➡and 两者加密成 32 位 md5 转换值相等 ➡️0e###&#x3D;0<br>ps:&#x3D;&#x3D; 等于运算符，常见于弱类型题目， 比较时不同类型会被转换成数字；<br>php 处理 0e 开头字符串会当成科学计数法进行处理 0e+任意数字都&#x3D;0</p>
             
         </div>
     </div>
@@ -386,7 +334,7 @@ highlight_file(**FILE**);
         
         <span class="tag">
             
-            <a href="/tags/ctf/" style="color: #ff7d73">ctf</a>
+            <a href="/tags/ctf/" style="color: #ffa2c4">ctf</a>
         </span>
         
     </div>
@@ -413,7 +361,7 @@ highlight_file(**FILE**);
         </div>
         <div class="name">nicolee278</div>
         <div class="description">
-            <p>有问题邮箱联系<a href="mailto:&#x6e;&#105;&#x63;&#x6f;&#108;&#x65;&#x32;&#55;&#x38;&#x40;&#113;&#113;&#46;&#x63;&#111;&#x6d;">&#x6e;&#105;&#x63;&#x6f;&#108;&#x65;&#x32;&#55;&#x38;&#x40;&#113;&#113;&#46;&#x63;&#111;&#x6d;</a><br>…</p>
+            <p>有问题邮箱联系<a href="mailto:&#110;&#105;&#99;&#111;&#x6c;&#x65;&#50;&#55;&#56;&#x40;&#113;&#113;&#46;&#x63;&#x6f;&#x6d;">&#110;&#105;&#99;&#111;&#x6c;&#x65;&#50;&#55;&#56;&#x40;&#113;&#113;&#46;&#x63;&#x6f;&#x6d;</a><br>…</p>
 
         </div>
         
@@ -430,6 +378,10 @@ highlight_file(**FILE**);
             
             <div class="friend-link">
                 <a target="_blank" rel="noopener" href="https://www.sqlsec.com/">light</a>
+            </div>
+            
+            <div class="friend-link">
+                <a target="_blank" rel="noopener" href="https://boogipop.com/">boogipop</a>
             </div>
             
         </div>

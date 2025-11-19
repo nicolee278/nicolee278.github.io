@@ -48,10 +48,6 @@
 
 
 
-<script src="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.js"></script>
-<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline.min.css" />
-<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/waline/2.15.8/waline-meta.min.css" />
-
 
 
 
@@ -193,7 +189,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/ctf/" style="color: #00bcd4">               
+                <a href="/tags/ctf/" style="color: #ffa2c4">               
                     ctf
                 </a>
             </span>
@@ -203,7 +199,10 @@
     </div>
     
     <div class="content" v-pre>
-        <p>###简单的传参<br>大前提之手撕 hackbar<br>(<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV17T411a7zN/?spm_id_from=333.999.0.0">https://www.bilibili.com/video/BV17T411a7zN/?spm_id_from=333.999.0.0</a>)<br>按教程弄好后 edge 浏览器也是一样的原理用开发者模式扩展上去<br>（1）easy_md5<br><img src="/test.png" alt="图片"><br>$name !&#x3D; $password➡️ 要求 name 和 password 数值不同<br>&amp;&amp; md5($name) &#x3D;&#x3D; md5($password)➡and 两者加密成 32 位 md5 转换值相等 ➡️0e###&#x3D;0<br>ps:&#x3D;&#x3D; 等于运算符，常见于弱类型题目， 比较时不同类型会被转换成数字；<br>php 处理 0e 开头字符串会当成科学计数法进行处理 0e+任意数字都&#x3D;0<br>膜拜的博客：<br>(<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_74020399/article/details/131132384">https://blog.csdn.net/qq_74020399/article/details/131132384</a>)<br>检查 ➡️ 打开 hackbar ➡️<br><img src="/2020240112205601.png" alt="图片"><br>⏯️excute 得 flag<br>（2）easy_include<br><img src="/2020240112221107.png" alt="图片"><br>直接传入 file 运行<br><img src="/2020240112221031.png" alt="图片"><br>得到：<br>flag 在 flag.php 中<br>这里我们知道了存放 flag 的文件地址，利用 php:&#x2F;&#x2F;filter 伪协议查看源代码<br>构造:file&#x3D;php:&#x2F;&#x2F;filter&#x2F;convert.base64-encode&#x2F;resource&#x3D;flag.php<br><img src="/2020240112222742.pngs" alt="图片"><br>得到：<br>PD9waHANCiRmbGFnPSdOU1NDVEZ7NDk0YjMwNmUtOGJkYy00ODA2LWFlZGYtNmY4NGNiZDMyMDg2fSc7<br>用 base64 解码器解码得到 flag</p>
+        <p>###简单的传参<br>大前提之手撕 hackbar<br>(<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV17T411a7zN/?spm_id_from=333.999.0.0">https://www.bilibili.com/video/BV17T411a7zN/?spm_id_from=333.999.0.0</a>)<br>按教程弄好后 edge 浏览器也是一样的原理用开发者模式扩展上去<br>（1）easy_md5<br><img src="/test.png" alt="图片"><br>$name !&#x3D; $password➡️ 要求 name 和 password 数值不同<br>&amp;&amp; md5($name) &#x3D;&#x3D; md5($password)➡and 两者加密成 32 位 md5 转换值相等 ➡️0e###&#x3D;0<br>ps:&#x3D;&#x3D; 等于运算符，常见于弱类型题目， 比较时不同类型会被转换成数字；<br>php 处理 0e 开头字符串会当成科学计数法进行处理 0e+任意数字都&#x3D;0</p>
+<span id="more"></span>
+
+<p>膜拜的博客：<br>(<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_74020399/article/details/131132384">https://blog.csdn.net/qq_74020399/article/details/131132384</a>)<br>检查 ➡️ 打开 hackbar ➡️<br><img src="/2020240112205601.png" alt="图片"><br>⏯️excute 得 flag<br>（2）easy_include<br><img src="/2020240112221107.png" alt="图片"><br>直接传入 file 运行<br><img src="/2020240112221031.png" alt="图片"><br>得到：<br>flag 在 flag.php 中<br>这里我们知道了存放 flag 的文件地址，利用 php:&#x2F;&#x2F;filter 伪协议查看源代码<br>构造:file&#x3D;php:&#x2F;&#x2F;filter&#x2F;convert.base64-encode&#x2F;resource&#x3D;flag.php<br><img src="/2020240112222742.pngs" alt="图片"><br>得到：<br>PD9waHANCiRmbGFnPSdOU1NDVEZ7NDk0YjMwNmUtOGJkYy00ODA2LWFlZGYtNmY4NGNiZDMyMDg2fSc7<br>用 base64 解码器解码得到 flag</p>
 <p>⭐ps:php:&#x2F;&#x2F;filter 是一种元封装器， 设计用于数据流打开时的<a target="_blank" rel="noopener" href="http://docs.php.net/manual/zh/filters.php">筛选过滤</a>应用。 作为中 间流处理其他流<br>语法：php:&#x2F;&#x2F;filter&#x2F;read&#x2F;resource&#x3D;文件名<br>php:&#x2F;&#x2F;filter 的 参数列表<br>a.read     　　　　读取(可选)<br>string.strip_tags 将数据流中的所有 html 标签清除<br> string.toupper     将数据流中的内容转换为大写<br> string.tolower     将数据流中的内容转换为小写<br>convert.base64-encode   将数据流中的内容转换为 base64 编码<br>convert.base64-decode 与上面对应解码</p>
 <pre><code>    b. write    　　　写入(可选)
 
@@ -215,12 +214,10 @@
     
     
     
-    
-         <!-- 样式文件 -->
-         <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css" />
     <div id="comment">
-        <div id="waline-container"></div>
+        <div id="giscus-container" class="giscus"></div>
     </div>
+    
     
     
     
@@ -256,24 +253,24 @@
     <script src="/js/main.js"></script>
     
     
+<script
+    src="https://giscus.app/client.js"
+    data-repo="nicolee278/nicolee278.github.io"
+    data-repo-id="R_kgDOMBrGVg"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOMBrGVs4Cx96O"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang=""
+    crossorigin
+    async
+></script>
 
 
-<script>
-    Waline.init({
-        el: "#waline-container",
-        serverURL: "https://walinecomment-4ppxc4sq7-nicolee278s-projects.vercel.app/",
-        commentCount: true,
-        pageview: false,
-        emoji: "https://unpkg.com/@waline/emojis@1.0.1/weibo,https://unpkg.com/@waline/emojis@1.0.1/alus,https://unpkg.com/@waline/emojis@1.0.1/bilibili,https://unpkg.com/@waline/emojis@1.0.1/qq,https://unpkg.com/@waline/emojis@1.0.1/tieba,https://unpkg.com/@waline/emojis@1.0.1/tw-emoji".split(","),
-        meta: "nick,mail,link".split(","),
-        requiredMeta: "nick".split(","),
-        lang: "zh-CN",
-        wordLimit: 0,
-        pageSize: "10",
-        login: "enable",
-        
-    });
-</script>
 
 
 
